@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping("")
-public class DemoController extends APIJSONController {
+public class CommonController extends APIJSONController {
 	
 	@Override
 	public Parser<Long> newParser(HttpSession session, RequestMethod method) {
