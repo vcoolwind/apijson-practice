@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "b37e131a-a665-427b-b4c9-76a20c2eb830",
+		"name": "multi-datasource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post dsx vipuser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"VipUser\": {\r\n        \"name\": \"jack-x\",\r\n        \"sex\": 1,\r\n        \"@datasource\":\"dsx\"\r\n    },\r\n    \"tag\": \"VipUser\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post dsy vipuser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"VipUser\": {\r\n        \"name\": \"jack-y\",\r\n        \"sex\": 1,\r\n        \"@datasource\":\"dsy\"\r\n    },\r\n    \"tag\": \"VipUser\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

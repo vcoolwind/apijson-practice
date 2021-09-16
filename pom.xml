@@ -10,6 +10,7 @@
     <modules>
         <module>apijson-extend</module>
         <module>apijson-jdbc-demo</module>
+        <module>apijson-multi-datasource-demo</module>
     </modules>
     <packaging>pom</packaging>
 
