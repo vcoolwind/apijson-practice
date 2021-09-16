@@ -56,4 +56,4 @@ VALUES(15, 1, 'DELETE', 'Moment', '{"MUST": "id", "REFUSE": "!", "INSERT": {"@ro
 -- 注册函数可被调用
 INSERT INTO `Function`
 (id, userId, name, arguments, demo, detail, `type`, version, tag, methods, `date`, back)
-VALUES(16, 0, 'isUserCanPutTodo', 'todoId', '{"todoId": 123}', '', 'Object', 0, NULL, NULL, '2021-07-28 20:04:27.0', NULL);
+VALUES(5, 0, 'isUserCanPutTodo', 'todoId', '{"todoId": 123}', '', 'Object', 0, NULL, NULL, '2021-07-28 20:04:27.0', NULL);

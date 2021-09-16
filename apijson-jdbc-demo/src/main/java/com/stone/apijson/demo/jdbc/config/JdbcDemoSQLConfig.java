@@ -4,13 +4,13 @@ import apijson.RequestMethod;
 import apijson.framework.APIJSONSQLConfig;
 import com.stone.apijson.demo.jdbc.model.MomentComment;
 
-public class DemoSQLConfig extends APIJSONSQLConfig {
+public class JdbcDemoSQLConfig extends APIJSONSQLConfig {
 
-    public DemoSQLConfig() {
+    public JdbcDemoSQLConfig() {
         super();
     }
 
-    public DemoSQLConfig(RequestMethod method, String table) {
+    public JdbcDemoSQLConfig(RequestMethod method, String table) {
         super(method, table);
     }
 

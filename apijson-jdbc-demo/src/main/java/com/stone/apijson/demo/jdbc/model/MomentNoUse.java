@@ -2,7 +2,7 @@ package com.stone.apijson.demo.jdbc.model;
 
 import apijson.framework.BaseModel;
 
-public class Moment extends BaseModel {
+public class MomentNoUse extends BaseModel {
     private  String content;
 
     public String getContent() {

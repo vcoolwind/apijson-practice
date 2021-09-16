@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.stone.apijson.demo.jdbc.controller.UserController;
-import com.stone.apijson.demo.jdbc.model.Moment;
+import com.stone.apijson.demo.jdbc.model.MomentNoUse;
 import com.stone.apijson.demo.jdbc.model.Todo;
 import com.stone.apijson.demo.jdbc.model.User;
 
@@ -31,13 +31,13 @@ import static apijson.RequestMethod.GET;
 import static apijson.RequestMethod.HEAD;
 import static apijson.framework.APIJSONVerifier.getVisitor;
 
-public class DemoFunctionParser extends APIJSONFunctionParser {
-    public DemoFunctionParser() {
+public class JdbcDemoFunctionParser extends APIJSONFunctionParser {
+    public JdbcDemoFunctionParser() {
         this(null, null, 0, null, null);
     }
 
     // 展示在远程函数内部可以用 this 拿到的东西
-    public DemoFunctionParser(RequestMethod method, String tag, int version, JSONObject request, HttpSession session) {
+    public JdbcDemoFunctionParser(RequestMethod method, String tag, int version, JSONObject request, HttpSession session) {
         super(method, tag, version, request, session);
     }
 
@@ -187,7 +187,7 @@ public class DemoFunctionParser extends APIJSONFunctionParser {
         long todoid = Long.parseLong((String) obj);
 
         SQLExecutor executor = new APIJSONParser().getSQLExecutor();
-        DemoSQLConfig config = new DemoSQLConfig();
+        JdbcDemoSQLConfig config = new JdbcDemoSQLConfig();
 
         String query = "SELECT * from " + config.getSQLSchema() + ".Todo where id = ?";
 
@@ -231,10 +231,10 @@ public class DemoFunctionParser extends APIJSONFunctionParser {
             throw new IllegalAccessException("user not logged in");
         }
 
-        String momentClzName = Moment.class.getSimpleName();
+        String momentClzName = MomentNoUse.class.getSimpleName();
         //查询一下对应的记录填写人是不是本人
         JSONObject todoRequest = new JSONRequest();
-        todoRequest.put(momentClzName, new apijson.JSONObject(new Moment().setId(((Number) idObj).longValue())).setJson("userId"));
+        todoRequest.put(momentClzName, new apijson.JSONObject(new MomentNoUse().setId(((Number) idObj).longValue())).setJson("userId"));
         JSONObject jsonResponse = new APIJSONParser(GET, false).parseResponse(todoRequest);
 
         // 内部错误
@@ -247,7 +247,7 @@ public class DemoFunctionParser extends APIJSONFunctionParser {
         }
 
         JSONResponse response = new JSONResponse(jsonResponse);
-        Moment moment = response.getObject(Moment.class);
+        MomentNoUse moment = response.getObject(MomentNoUse.class);
         if (!moment.getUserId().equals(visitor.getId())) {
             throw new IllegalAccessException("user don't have permission to put todo!");
         }

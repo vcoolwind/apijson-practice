@@ -1,5 +1,6 @@
 # 参考项目
 https://github.com/jerrylususu/apijson_todo_demo/blob/master/FULLTEXT.md
+https://github.com/Tencent/APIJSON/wiki#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86
 
 # 快速跑起来
 1. 建立数据库，创建apijson必须以来的几张表
@@ -22,17 +23,27 @@ https://github.com/jerrylususu/apijson_todo_demo/blob/master/FULLTEXT.md
 1. 创建apijson数据库及对应的系统表，初始化必要的数据；
 2. 创建业务表，并根据业务表的权限设置Access表数据
 3. 确定每个访问方法的request的规则，这个就是业务逻辑的体现
-4. 创建继承于APIJSONSQLConfig实体类，用于确定数据库访问方式；创建继承于APIJSONFunctionParser的实体类，暴露对外的函数，并在Function中配置访问规则。
+4. 创建继承于APIJSONSQLConfig实体类，用于确定数据库访问方式；创建继承于APIJSONFunctionParser的实体类，
+   暴露对外的函数，并在Function中配置访问规则。
+   函数又可以在request中进行配置，作为业务处理签的校验：{"Todo": {"MUST": "id", "REFUSE": "userId", "UPDATE": {"checkCanPutx-()": "isUserCanPutTodo(id)"}}}
+   在对todo进行修改时，通过设置checkCanPutx-()，在业务处理前，先调用isUserCanPutTodo完成检查。
+   
 5. 创建继承于APIJSONController的实体类，进行post到restful的转换。
+6. model不是必须的，除非有json到model的转换，并进行业务的处理。如本demo中，Moment有表即可处理，不需要新建立一个Moment的Model来对应。
 
 # 几点解读
 1. apijson本质上完成了json到sql的转换，通过灵活的语法来生成sql。难点是orm对应的sql生成器。
 2. jdbc方式，演示了系统表和业务表必须在一个库中的场景
 3. 通过系统的三张表，控制了访问权限、请求格式校验、远程函数调用检验，这个思路还是不错的。
 
+
 4. 几个优化点：
    * 通过注解实现这三张表，可以完全脱离数据库的使用。
      通过三个注解（MethodAccess、RequestStructure、FunctionDef），动态完成对ACCESS_MAP、REQUEST_MAP、FUNCTION_MAP的填充；
-     全部使用注解，是可以完成所有动作的。
+     全部使用注解，是可以完成所有动作的，比如本demo中的MomentComment类，通过添加MethodAccess和RequestStructure，使用扩展框架的如下代码，完成动态的规则设置：
+     ApiJsonAnnotationUtil.fillAccessMap(MomentComment.class);
+     ApiJsonAnnotationUtil.fillRequestMap(MomentComment.class);
+     
    * 函数强制绑定在一个APIJSONFunctionParser是不合适的，可以使用内存对象的方式搞定。
+   * 抽空了再实现一个FunctionDef注解，就可以废弃三张表了。
    

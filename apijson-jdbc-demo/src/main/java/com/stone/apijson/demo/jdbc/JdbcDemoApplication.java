@@ -18,8 +18,8 @@ import apijson.framework.APIJSONApplication;
 import apijson.framework.APIJSONCreator;
 import apijson.orm.FunctionParser;
 import apijson.orm.SQLConfig;
-import com.stone.apijson.demo.jdbc.config.DemoFunctionParser;
-import com.stone.apijson.demo.jdbc.config.DemoSQLConfig;
+import com.stone.apijson.demo.jdbc.config.JdbcDemoFunctionParser;
+import com.stone.apijson.demo.jdbc.config.JdbcDemoSQLConfig;
 import com.stone.apijson.demo.jdbc.model.MomentComment;
 import com.stone.apijson.extend.ApiJsonAnnotationUtil;
 import org.springframework.boot.SpringApplication;
@@ -38,26 +38,26 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @SpringBootApplication
-public class DemoApplication {
+public class JdbcDemoApplication {
 
     static {
 
         APIJSONApplication.DEFAULT_APIJSON_CREATOR = new APIJSONCreator() {
             @Override
             public SQLConfig createSQLConfig() {
-                return new DemoSQLConfig();
+                return new JdbcDemoSQLConfig();
             }
 
             @Override
             public FunctionParser createFunctionParser() {
-                return new DemoFunctionParser();
+                return new JdbcDemoFunctionParser();
             }
         };
 
     }
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(JdbcDemoApplication.class, args);
 
 //		Log.DEBUG = false;
 //		APIJSONParser.IS_PRINT_BIG_LOG = false;
